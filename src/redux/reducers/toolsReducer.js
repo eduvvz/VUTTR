@@ -1,5 +1,5 @@
 import { 
-    GET_TOOLS
+    ADD_TOOLS
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 
 export const toolsReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case GET_TOOLS:
+        case ADD_TOOLS:
             return {
                 ...state,
                 tools: [...state.tools, action.tools]

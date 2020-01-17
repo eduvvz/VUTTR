@@ -58,7 +58,7 @@ function CardTools(props) {
             <Col sm={12}>
                 <CardDiv className='mt-4'>
                     <HeaderDiv>
-                        <Title href='' target='_blank'>{tool.tool}</Title>
+                        <Title href={tool.tool_link} target='_blank'>{tool.tool}</Title>
                         <ButtonRemove>
                             <img src={require('../../assets/img/close_icon.png')} className='mr-2' width='20px' alt='icon close'/>
                             <span>Remove</span>
