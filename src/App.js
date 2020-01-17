@@ -1,13 +1,21 @@
 import React from 'react';
 
-import { GET_TOOLS, 
-  PUT_TOOLS, 
-  DELETE_TOOLS } from './service/constants'
+import { 
+  Container, 
+  Row, 
+  Col 
+} from 'react-bootstrap';
 
 function App() {
-  console.log(GET_TOOLS);
   return (
     <div className="App">
+      <Container>
+        <Row>
+          <Col>
+            <h1>VUTTR</h1>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }
