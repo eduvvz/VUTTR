@@ -1,6 +1,6 @@
 import React from 'react'
 
-import CardTool from './components/shared/CardTools'
+import ToolsList from './components/ToolsList'
 
 import { 
   Container, 
@@ -48,7 +48,7 @@ function App() {
         </Row>
 
         <Row>
-          <CardTool />
+          <ToolsList />
         </Row>
       </Container>
     </div>
