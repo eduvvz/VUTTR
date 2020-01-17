@@ -50,12 +50,15 @@ const TagSection = styled.div`
 `
 
 function CardTools(props) {
+
+    const { tool } = props
+
     return(
         <>
             <Col sm={12}>
                 <CardDiv className='mt-4'>
                     <HeaderDiv>
-                        <Title href='' target='_blank'>Tool 01</Title>
+                        <Title href='' target='_blank'>{tool.tool}</Title>
                         <ButtonRemove>
                             <img src={require('../../assets/img/close_icon.png')} className='mr-2' width='20px' alt='icon close'/>
                             <span>Remove</span>
@@ -63,12 +66,16 @@ function CardTools(props) {
                     </HeaderDiv>
                     <BodyDiv>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae sem luctus est tincidunt tempus eu ut lacus. Nullam eros tellus, congue id sagittis eu, condimentum sit amet nulla. Maecenas tincidunt ipsum in libero tincidunt, pharetra aliquet felis elementum. Vivamus rhoncus nisl nec porttitor mollis.
+                            {tool.description}                    
                         </p>
                         <TagSection>
-                            <Badge pill variant="dark" className='mr-2 mb-2'>
-                                # tag 01
-                            </Badge>
+                            {tool.tags.map((tag, i) => {
+                                return (
+                                    <Badge pill variant="dark" className='mr-2 mb-2' key={i}>
+                                        {tag}
+                                    </Badge>
+                                )
+                            })}
                         </TagSection>
                     </BodyDiv>
                 </CardDiv>
