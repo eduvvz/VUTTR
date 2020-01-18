@@ -72,7 +72,7 @@ function CardTools(props) {
                             {tool.tags.map((tag, i) => {
                                 return (
                                     <Badge pill variant="dark" className='mr-2 mb-2' key={i}>
-                                        {tag}
+                                        # {tag}
                                     </Badge>
                                 )
                             })}
