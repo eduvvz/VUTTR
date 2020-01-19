@@ -1,7 +1,9 @@
 const BASE_URL = 'https://5e21db5f6867a0001416f76c.mockapi.io/VUTTR'
 
 const TOOLS = {
-    GET: `${BASE_URL}/tools`,
+    GET: params => {
+        return `${BASE_URL}/tools${params}`
+    },
     GET_ID: (id) => {
         return `${BASE_URL}/tools/${id}`
     },

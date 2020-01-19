@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { useForm } from 'react-hook-form'
 
@@ -32,7 +32,15 @@ function App() {
 
   const dispatch = useDispatch()
   const { register, handleSubmit } = useForm()
+  const [valueSearch, setValueSearch] = useState('')
 
+  useEffect(() => {
+    const handleSearchItens = () => {
+      
+    }
+
+    handleSearchItens()
+  }, [valueSearch])
 
   const onClickAddToolBtn = () => {
     dispatch({ 
@@ -60,7 +68,6 @@ function App() {
         onClickButton: () => {
           deleteTool(toolId)
             .then(() => {
-              console.log('deletou')
               updateList()
               hideModal()
             })
@@ -96,7 +103,6 @@ function App() {
   }
 
   const updateList = () => {
-    console.log('updando lista')
     dispatch({
       type: NEED_UPDATE_LIST_TOOLS,
       needUpdateList: true
@@ -147,7 +153,7 @@ function App() {
 
         <Row  className='mt-4'>
           <Col sm={3}>
-            <Form.Control placeholder='Search' className="text-muted">
+            <Form.Control placeholder='Search' className="text-muted" onChange={e => setValueSearch(e.target.value)}>
             </Form.Control>
           </Col>
           <Col sm={3} className={'d-flex align-items-center'}>

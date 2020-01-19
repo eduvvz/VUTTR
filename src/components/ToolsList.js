@@ -20,7 +20,6 @@ function ToolsList(props) {
     const needUpdateList = useSelector(state => state.toolsState.needUpdateList)
 
     useEffect(() => {
-        console.log('mudou update')
         const makeRequestTools = async () => {
           const tools = await getTools()
           setTools((t) => {
@@ -32,7 +31,6 @@ function ToolsList(props) {
             needUpdateList: false
           })
         }
-        console.log('precisa', needUpdateList)
         if (needUpdateList)
             makeRequestTools()
     }, [needUpdateList, dispatch])

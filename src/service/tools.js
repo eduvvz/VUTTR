@@ -2,9 +2,9 @@ import axios from 'axios'
 
 import { TOOLS } from './constants'
 
-const getTools = () => {
+const getTools = param => {
     return new Promise ((resolve, reject)=> { 
-        axios.get(TOOLS.GET)
+        axios.get(TOOLS.GET(param || ''))
             .then((response) => {
                 console.log(response)
                 resolve(response.data)

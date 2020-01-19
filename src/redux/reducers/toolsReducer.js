@@ -16,7 +16,6 @@ export const toolsReducer = (state = INITIAL_STATE, action) => {
                 tools: action.tools
             };
         case NEED_UPDATE_LIST_TOOLS:
-            console.log('reducer', action.needUpdateList)
             return {
                 ...state,
                 needUpdateList: action.needUpdateList
