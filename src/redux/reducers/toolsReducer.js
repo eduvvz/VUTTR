@@ -1,16 +1,21 @@
 import { 
-    ADD_TOOLS,
-    NEED_UPDATE_LIST_TOOLS
+    SET_TOOLS,
+    NEED_UPDATE_LIST_TOOLS,
+    SET_SEARCH_VALUE
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
     tools: [],
-    needUpdateList: false
+    needUpdateList: false,
+    search: {
+        text: '',
+        onlyTags: false
+    }
 }
 
 export const toolsReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case ADD_TOOLS:
+        case SET_TOOLS:
             return {
                 ...state,
                 tools: action.tools
@@ -19,6 +24,11 @@ export const toolsReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 needUpdateList: action.needUpdateList
+            }
+        case SET_SEARCH_VALUE:
+            return {
+                ...state,
+                search: { ...state.search, ...action.search }
             }
         default:
             return state;

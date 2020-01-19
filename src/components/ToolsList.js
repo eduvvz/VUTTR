@@ -17,14 +17,14 @@ function ToolsList(props) {
     const dispatch = useDispatch()
     const [tools, setTools] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [renderList, setRenderList] = useState([])
     const needUpdateList = useSelector(state => state.toolsState.needUpdateList)
+    const search = useSelector(state => state.toolsState.search)
 
     useEffect(() => {
         const makeRequestTools = async () => {
-          const tools = await getTools()
-          setTools((t) => {
-            return [...tools]
-          })
+          const tools = await getTools('?sortBy=createdAt&order=desc')
+          setTools(tools)
           setIsLoading(false)
           dispatch({
             type: NEED_UPDATE_LIST_TOOLS,
@@ -34,6 +34,26 @@ function ToolsList(props) {
         if (needUpdateList)
             makeRequestTools()
     }, [needUpdateList, dispatch])
+
+    useEffect(() => {
+        const filterList = () => {
+            let newFilteredList = tools.filter(t => t.tags.includes(search.text))
+
+            if (!search.onlyTags)
+                newFilteredList = [
+                    ...newFilteredList,
+                    ...tools.filter(t => t.tool.includes(search.text))
+                ]
+            
+            setRenderList(newFilteredList)
+        }
+
+        if(search.text.length > 0) {
+            filterList()
+        } else {
+            setRenderList(tools)
+        }
+    }, [search, tools])
 
     useEffect(() => {
         if(!isLoading) return
@@ -46,7 +66,7 @@ function ToolsList(props) {
 
     return(
         <>
-            {tools.map((tool, i) => <CardTools onClickRemoveToolBtn={onRemoveTool}  tool={tool} key={i} />)}
+            {renderList.map((tool, i) => <CardTools onClickRemoveToolBtn={onRemoveTool}  tool={tool} key={i} />)}
             {isLoading &&
                 <Col className='mt-5'>
                     <p className='text-center mt-5'>Loading...</p>

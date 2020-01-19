@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 import { useForm } from 'react-hook-form'
 
 import { useDispatch } from 'react-redux'
 import { 
   SET_MODAL, 
-  NEED_UPDATE_LIST_TOOLS 
+  NEED_UPDATE_LIST_TOOLS,
+  SET_SEARCH_VALUE
 } from './redux/actions/actionTypes'
 
 import ToolsList from './components/ToolsList'
@@ -32,15 +33,6 @@ function App() {
 
   const dispatch = useDispatch()
   const { register, handleSubmit } = useForm()
-  const [valueSearch, setValueSearch] = useState('')
-
-  useEffect(() => {
-    const handleSearchItens = () => {
-      
-    }
-
-    handleSearchItens()
-  }, [valueSearch])
 
   const onClickAddToolBtn = () => {
     dispatch({ 
@@ -153,11 +145,26 @@ function App() {
 
         <Row  className='mt-4'>
           <Col sm={3}>
-            <Form.Control placeholder='Search' className="text-muted" onChange={e => setValueSearch(e.target.value)}>
+            <Form.Control 
+              placeholder='Search' 
+              className="text-muted" 
+              onChange={e => dispatch({
+                type: SET_SEARCH_VALUE,
+                search: {
+                  text: e.target.value
+                }
+              })}
+            >
             </Form.Control>
           </Col>
           <Col sm={3} className={'d-flex align-items-center'}>
             <Form.Check
+              onChange={e => dispatch({
+                type: SET_SEARCH_VALUE,
+                search: {
+                  onlyTags: e.target.checked
+                }
+              })}
               type={"checkbox"}
               label={`search in tags only`}
               id={`search-in-tags`}
