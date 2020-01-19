@@ -1,9 +1,11 @@
 import { 
-    ADD_TOOLS
+    ADD_TOOLS,
+    NEED_UPDATE_LIST_TOOLS
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
-    tools: []
+    tools: [],
+    needUpdateList: false
 }
 
 export const toolsReducer = (state = INITIAL_STATE, action) => {
@@ -13,6 +15,11 @@ export const toolsReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 tools: [...state.tools, action.tools]
             };
+        case NEED_UPDATE_LIST_TOOLS:
+            return {
+                ...state,
+                needUpdateList: action.needUpdateList
+            }
         default:
             return state;
     }

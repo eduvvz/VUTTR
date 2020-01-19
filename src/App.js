@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { useForm } from 'react-hook-form'
 
 import { useDispatch } from 'react-redux'
-import { SET_MODAL } from './redux/actions/actionTypes'
+import { SET_MODAL, NEED_UPDATE_LIST_TOOLS } from './redux/actions/actionTypes'
 
 import ToolsList from './components/ToolsList'
 import MultiModal from './components/shared/MultiModal'
@@ -25,7 +25,8 @@ import {
 function App() {
 
   const dispatch = useDispatch()
-  const { register, handleSubmit, reset, errors } = useForm()
+  const { register, handleSubmit } = useForm()
+
 
   const onClickAddToolBtn = () => {
     dispatch({ 
@@ -50,15 +51,24 @@ function App() {
     })
   }
 
-  const onSubmitTool = data => {
+  const onSubmitTool = (data, e) => {
     const tags = data.tags.split(',')
     postTools({
       ...data,
       tags
-    }).then((data => {
-      console.log(data)
+    }).then((() => {
+      updateList()
+      hideModal()
+      e.target.reset()
     })).catch(error => {
       console.log(error)
+    })
+  }
+
+  const updateList = () => {
+    dispatch({
+      type: NEED_UPDATE_LIST_TOOLS,
+      needUpdateList: true
     })
   }
 
