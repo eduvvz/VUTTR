@@ -22,14 +22,24 @@ function ToolsList(props) {
     const search = useSelector(state => state.toolsState.search)
 
     useEffect(() => {
-        const makeRequestTools = async () => {
-          const tools = await getTools('?sortBy=createdAt&order=desc')
-          setTools(tools)
-          setIsLoading(false)
-          dispatch({
-            type: NEED_UPDATE_LIST_TOOLS,
-            needUpdateList: false
-          })
+        const makeRequestTools = () => {
+          getTools('?sortBy=createdAt&order=desc')
+            .then(tools => {
+                setTools(tools)
+                setIsLoading(false)
+                dispatch({
+                    type: NEED_UPDATE_LIST_TOOLS,
+                    needUpdateList: false
+                })
+            }).catch(error => {
+                console.log(error)
+                setTools([])
+                setIsLoading(false)
+                dispatch({
+                    type: NEED_UPDATE_LIST_TOOLS,
+                    needUpdateList: false
+                })
+            })
         }
         if (needUpdateList)
             makeRequestTools()

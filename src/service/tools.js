@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import handleError from '../utils/handleError'
 import { TOOLS } from './constants'
 
 const getTools = param => {
@@ -10,7 +10,7 @@ const getTools = param => {
                 resolve(response.data)
             })
             .catch((error) => {
-                console.log(error);
+                handleError(error)
                 reject(error)
             })
     });
@@ -24,7 +24,7 @@ const postTools = tool => {
                 resolve(response)
             })
             .catch((error) => {
-                console.log(error);
+                handleError(error)
                 reject(error)
             })
     })
@@ -38,7 +38,7 @@ const deleteTool = id => {
                 resolve(response)
             })
             .catch((error) => {
-                console.log(error);
+                handleError(error)
                 reject(error)
             })
     })
