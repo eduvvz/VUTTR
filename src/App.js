@@ -81,10 +81,10 @@ function App() {
   }
 
   const onSubmitTool = (data, e) => {
-    const tags = data.tags.split(',')
+    const tags = data.tags.split(',').map(tag => tag.toLowerCase())
     postTools({
       ...data,
-      tags
+      tags,
     }).then((() => {
       updateList()
       hideModal()
@@ -133,7 +133,7 @@ function App() {
   )
 
   return (
-    <div className="App">
+    <div className="App pb-5">
       <Container>
 
         <Row className='mt-5'>

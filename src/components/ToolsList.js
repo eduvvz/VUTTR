@@ -23,7 +23,7 @@ function ToolsList(props) {
 
     useEffect(() => {
         const makeRequestTools = () => {
-          getTools('?sortBy=createdAt&order=desc')
+          getTools('?sortBy=id&order=desc')
             .then(tools => {
                 setTools(tools)
                 setIsLoading(false)
@@ -47,14 +47,27 @@ function ToolsList(props) {
 
     useEffect(() => {
         const filterList = () => {
-            let newFilteredList = tools.filter(t => t.tags.includes(search.text))
+            let newFilteredList = tools.filter(t => t.tags.includes(search.text.toLowerCase()))
 
-            if (!search.onlyTags)
+            if (!search.onlyTags) {
                 newFilteredList = [
                     ...newFilteredList,
                     ...tools.filter(t => t.tool.includes(search.text))
                 ]
+
+                newFilteredList = [
+                    ...newFilteredList,
+                    ...tools.filter(t => t.description.toLowerCase().includes(search.text.toLowerCase()))
+                ]
+            }
             
+            // filtrando elementos repetidos
+            newFilteredList = newFilteredList.filter((tool, index, self) => {
+                return index === self.findIndex((el) => (
+                    el['id'] === tool['id']
+                ))
+            })
+
             setRenderList(newFilteredList)
         }
 
