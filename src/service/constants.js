@@ -1,4 +1,4 @@
-const BASE_URL = 'https://5e21db5f6867a0001416f76c.mockapi.io/VUTTR'
+const BASE_URL = 'http://5e21db5f6867a0001416f76c.mockapi.io/VUTTR'
 
 const TOOLS = {
     GET: params => {
