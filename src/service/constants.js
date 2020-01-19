@@ -7,7 +7,9 @@ const TOOLS = {
     },
     POST: `${BASE_URL}/tools`,
     PUT: `${BASE_URL}/tools`,
-    DELETE: `${BASE_URL}/tools`,
+    DELETE: (id) => {
+        return `${BASE_URL}/tools/${id}`
+    }
 }
 
 

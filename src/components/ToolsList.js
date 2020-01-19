@@ -11,25 +11,31 @@ import {
     Col,
 } from 'react-bootstrap'
 
-function ToolsList() {
+function ToolsList(props) {
 
+    const { onRemoveTool } = props
     const dispatch = useDispatch()
     const [tools, setTools] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const needUpdateList = useSelector(state => state.toolsState.needUpdateList)
 
     useEffect(() => {
+        console.log('mudou update')
         const makeRequestTools = async () => {
           const tools = await getTools()
           setTools((t) => {
-            return [...t, ...tools]
+            return [...tools]
           })
           setIsLoading(false)
+          dispatch({
+            type: NEED_UPDATE_LIST_TOOLS,
+            needUpdateList: false
+          })
         }
-        
+        console.log('precisa', needUpdateList)
         if (needUpdateList)
             makeRequestTools()
-    }, [needUpdateList])
+    }, [needUpdateList, dispatch])
 
     useEffect(() => {
         if(!isLoading) return
@@ -42,7 +48,7 @@ function ToolsList() {
 
     return(
         <>
-            {tools.map((tool, i) => <CardTools tool={tool} key={i} />)}
+            {tools.map((tool, i) => <CardTools onClickRemoveToolBtn={onRemoveTool}  tool={tool} key={i} />)}
             {isLoading &&
                 <Col className='mt-5'>
                     <p className='text-center mt-5'>Loading...</p>

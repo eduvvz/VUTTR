@@ -13,9 +13,10 @@ export const toolsReducer = (state = INITIAL_STATE, action) => {
         case ADD_TOOLS:
             return {
                 ...state,
-                tools: [...state.tools, action.tools]
+                tools: action.tools
             };
         case NEED_UPDATE_LIST_TOOLS:
+            console.log('reducer', action.needUpdateList)
             return {
                 ...state,
                 needUpdateList: action.needUpdateList

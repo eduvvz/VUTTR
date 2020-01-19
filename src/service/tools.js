@@ -30,7 +30,22 @@ const postTools = tool => {
     })
 }
 
+const deleteTool = id => {
+    return new Promise((resolve, reject) => {
+        axios.delete(TOOLS.DELETE(id))
+            .then((response) => {
+                console.log(response)
+                resolve(response)
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error)
+            })
+    })
+}
+
 export {
     getTools,
-    postTools
+    postTools,
+    deleteTool
 }

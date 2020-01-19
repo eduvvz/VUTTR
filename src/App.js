@@ -3,11 +3,17 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 
 import { useDispatch } from 'react-redux'
-import { SET_MODAL, NEED_UPDATE_LIST_TOOLS } from './redux/actions/actionTypes'
+import { 
+  SET_MODAL, 
+  NEED_UPDATE_LIST_TOOLS 
+} from './redux/actions/actionTypes'
 
 import ToolsList from './components/ToolsList'
 import MultiModal from './components/shared/MultiModal'
-import { postTools } from './service/tools'
+import { 
+  postTools,
+  deleteTool
+} from './service/tools'
 
 import { 
   Container, 
@@ -36,8 +42,32 @@ function App() {
         onHide: hideModal,
         title: 'Add New Tool',
         body: bodyModalAddTool,
-        textButton: 'Add Tool',
         showButtonFooter: false
+      }
+    })
+  }
+
+  const onClickRemoveToolBtn = (toolName, toolId) => {
+    dispatch({ 
+      type: SET_MODAL,
+      modal: {
+        show: true,
+        onHide: hideModal,
+        title: 'Remove Tool',
+        body: (<h3>Are you sure you want to remove <b>{toolName}</b>?</h3>),
+        textButton: 'Yes, remove',
+        showButtonFooter: true,
+        onClickButton: () => {
+          deleteTool(toolId)
+            .then(() => {
+              console.log('deletou')
+              updateList()
+              hideModal()
+            })
+            .catch(error => {
+              console.log(error)
+            })
+        }
       }
     })
   }
@@ -66,6 +96,7 @@ function App() {
   }
 
   const updateList = () => {
+    console.log('updando lista')
     dispatch({
       type: NEED_UPDATE_LIST_TOOLS,
       needUpdateList: true
@@ -135,7 +166,7 @@ function App() {
         </Row>
 
         <Row>
-          <ToolsList />
+          <ToolsList onRemoveTool={onClickRemoveToolBtn} />
         </Row>
       </Container>
       <MultiModal />

@@ -51,7 +51,7 @@ const TagSection = styled.div`
 
 function CardTools(props) {
 
-    const { tool } = props
+    const { tool, onClickRemoveToolBtn } = props
 
     return(
         <>
@@ -59,7 +59,7 @@ function CardTools(props) {
                 <CardDiv className='mt-4'>
                     <HeaderDiv>
                         <Title href={tool.tool_link} target='_blank'>{tool.tool}</Title>
-                        <ButtonRemove>
+                        <ButtonRemove onClick={() => onClickRemoveToolBtn(tool.tool, tool.id)}>
                             <img src={require('../../assets/img/close_icon.png')} className='mr-2' width='20px' alt='icon close'/>
                             <span>Remove</span>
                         </ButtonRemove>
